@@ -9,5 +9,5 @@ router.register(r'cart', CartViewSet)
 router.register(r'orders', OrderViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("products/", ProductViewSet.as_view({'get': 'list'}), name="product-list"),
 ]
