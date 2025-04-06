@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+    {% if cart_items %}
+        <ul>
+        {% for item in cart_items %}
+            <li>{{ item.product.name }} - {{ item.quantity }} x ${{ item.product.price }}</li>
+        {% endfor %}
+        </ul>
+        <p>Total: ${{ cart_items|sum:"product.price" }}</p>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+
+
+</body>
+</html>

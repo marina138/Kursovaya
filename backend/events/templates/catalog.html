@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Каталог</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Магазин одежды</a>
+    <nav>
+      <a href="{% url 'index' %}">Главная</a>
+      <a href="/catalog">Каталог</a>
+      <a href="/cart">Корзина</a>
+      <a href="/account">Личный кабинет</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Каталог товаров</h1>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Применить фильтры</button>
+    </form>
+
+    {% for product in products %}
+    <div class="product-card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p class="price">${{ product.price }}</p>
+        <form action="{% url 'add_to_cart' product.id %}" method="post">
+            {% csrf_token %}
+            <button class="add-to-cart-btn" type="submit">Add to Cart</button>
+        </form>
+    </div>
+{% empty %}
+    <p>No products available</p>
+{% endfor %}
+
+
+
+
+
+  </main>
+
+</body>
+</html>
