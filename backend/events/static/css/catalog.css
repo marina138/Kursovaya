@@ -5,40 +5,43 @@ body {
     background-color: #f9f9f9;
 }
 header {
-    background-color: #4a90e2;
-    padding: 20px 40px;
+    background-color: #222;
+    color: white;
+    padding: 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-    .logo {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-    }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
+nav {
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-    nav a:hover {
-      color: #dff0ff;
-    }
+nav a {
+    text-decoration: none;
+    font-size: 2/rem;
+    color: #fff;
+    transition: color 0.3s, border-bottom 0.3s;
+    padding: 6px 12px;
+    border-bottom: 2px solid transparent;
+}
 
-    main {
-      padding: 40px;
-    }
-
-    h1 {
-      color: #333;
-      margin-bottom: 30px;
-    }
+nav a:hover {
+    color: #f5a623; /* оранжевый при наведении */
+    border-bottom: 2px solid #f5a623;
+}
 
     .catalog {
       display: grid;
@@ -99,156 +102,83 @@ header {
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    padding: 20px;
-}
 
 
 
 
 /* events/static/css/catalog.css */
-
-/* Контейнер с карточками товаров */
-.product-container {
+.catalog-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки на больших экранах */
-    gap: 20px; /* Расстояние между карточками */
-    margin: 20px auto;
-    max-width: 1200px; /* Максимальная ширина контейнера */
-    padding: 0 10px; /* Отступы по бокам */
+    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд */
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Стили для каждой карточки товара */
 .product-card {
-    background-color: #ffffff; /* Белый фон */
-    border: 1px solid #ddd; /* Светлая граница */
-    border-radius: 10px; /* Округлые углы */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 400px; /* Фиксированная высота карточки */
-    overflow: hidden; /* Скрыть элементы, выходящие за пределы */
+    transition: transform 0.3s ease;
+    height: 100%;
 }
 
-/* Стили для картинки товара */
-.product-card img {
-    width: 100%;
-    height: 200px; /* Ограничиваем высоту картинки */
-    object-fit: cover; /* Обрезаем картинку с сохранением пропорций */
-    border-radius: 8px; /* Округлые углы для картинки */
-    margin-bottom: 10px; /* Отступ снизу */
-}
-
-.product-card h3 {
-    font-size: 1.2em; /* Размер шрифта */
-    font-weight: 600; /* Жирное начертание */
-    color: #333; /* Темно-серый цвет текста */
-    margin: 10px 0; /* Отступы сверху и снизу */
-    text-align: center; /* Выравнивание по центру */
-    line-height: 1.4; /* Высота строки для лучшей читаемости */
-    text-transform: capitalize; /* Преобразуем первую букву каждого слова в верхний регистр */
-}
-
-
-/* Эффект при наведении */
 .product-card:hover {
-    transform: scale(1.05); /* Увеличиваем карточку при наведении */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Увеличиваем тень */
+    transform: translateY(-5px);
 }
 
-/* Медиазапросы для адаптивности */
-@media screen and (max-width: 1200px) {
-    .product-container {
-        grid-template-columns: repeat(3, 1fr); /* 3 колонки на экранах меньше 1200px */
-    }
+.product-image-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f6f6f6;
 }
 
-@media screen and (max-width: 800px) {
-    .product-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки на экранах меньше 800px */
-    }
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-@media screen and (max-width: 500px) {
-    .product-container {
-        grid-template-columns: 1fr; /* 1 колонка на экранах меньше 500px */
-    }
-}
-
-
-
-.product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    padding: 20px;
-}
-
-.product-details {
-    padding: 15px;
+.product-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .product-name {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
     color: #333;
+    margin: 0 0 8px 0;
+    text-align: center;
 }
 
 .product-price {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: #e74c3c;
-}
-
-.product-description {
-    font-size: 0.9em;
-    margin-bottom: 15px;
-    color: #777;
-}
-
-.product-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
+    font-size: 16px;
+    color: #666;
     text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
+    margin-bottom: 12px;
+}
+
+.add-to-cart-button {
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.product-button:hover {
-    background-color: #2980b9;
-}
-
-/* static/css/styles.css */
-
-form {
-    margin-bottom: 20px;
-}
-
-form input,
-form select,
-form button {
-    margin-right: 10px;
-}
-
-.product-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin: 10px;
-    display: inline-block;
-    width: 200px;
-}
-
-.product-card img {
-    width: 100%;
-    height: auto;
+.add-to-cart-button:hover {
+    background-color: #388E3C;
 }
 

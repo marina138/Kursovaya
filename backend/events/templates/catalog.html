@@ -5,16 +5,306 @@
   <title>Каталог</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <style>
+        /* static/styles.css */
+body, html {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+}
+header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    padding: 10px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 2/rem;
+    color: #fff;
+    transition: color 0.3s, border-bottom 0.3s;
+    padding: 6px 12px;
+    border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+    color: #f5a623; /* оранжевый при наведении */
+    border-bottom: 2px solid #f5a623;
+}
+
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+      flex-grow: 1;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card-price {
+      color: #4a90e2;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .card button {
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .card button:hover {
+      background-color: #367bd3;
+    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+
+/* events/static/css/catalog.css */
+.catalog-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд */
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f6f6f6;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 8px 0;
+    text-align: center;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.add-to-cart-button {
+    padding: 10px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+    background-color: #388E3C;
+}
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+}
+/* Основные стили для формы */
+form {
+    display: flex;
+    flex-wrap: wrap; /* Чтобы элементы не выходили за пределы */
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 1300px;
+    margin: 20px auto;
+}
+
+/* Стили для полей формы (input и select) */
+form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+form input,
+form select {
+    width: 180px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+    margin-right: 20px; /* расстояние между полями */
+}
+
+/* Стили при фокусе */
+form input:focus,
+form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Кнопка "Применить фильтры" */
+form button {
+    padding: 12px 20px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+/* Ховер на кнопке */
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Убираем пустые поля для выравнивания */
+form .error {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+/* Если форма занимает много места, стили для маленьких экранов */
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    form input,
+    form select {
+        width: 100%; /* Делает поля шире на мобильных устройствах */
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+
+/* Ховер на кнопке */
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для блоков ошибок (если есть) */
+form .error {
+    color: #ff4d4d;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+    </style>
 </head>
 <body>
 
   <header>
-    <a href="/" class="logo">Магазин одежды</a>
+    <a href="/" class="logo">HOMOSEM</a>
     <nav>
       <a href="{% url 'index' %}">Главная</a>
       <a href="/catalog">Каталог</a>
-      <a href="/cart">Корзина</a>
-      <a href="/account">Личный кабинет</a>
+      <a href="{% url 'cart' %}">Корзина</a>
+      <a href="{% url 'login' %}">Личный кабинет</a>
     </nav>
   </header>
 
@@ -25,26 +315,30 @@
         <button type="submit">Применить фильтры</button>
     </form>
 
-    {% for product in products %}
-    <div class="product-card">
-        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p class="price">${{ product.price }}</p>
-        <form action="{% url 'add_to_cart' product.id %}" method="post">
-            {% csrf_token %}
-            <button class="add-to-cart-btn" type="submit">Add to Cart</button>
-        </form>
+    <div class="catalog-container">
+    {% for product in filter.qs %}
+        <div class="product-card">
+            <div class="product-image-wrapper">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            </div>
+            <div class="product-content">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-price">{{ product.price }} ₽</p>
+                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="add-to-cart-btn">Добавить в корзину</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-{% empty %}
-    <p>No products available</p>
-{% endfor %}
-
-
-
-
-
   </main>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Магазин одежды. Все права защищены.</p>
+        <p>Контакты: info@fashionstore.ru | +7 900 000 00 00</p>
+    </div>
+</footer>
 
 </body>
 </html>

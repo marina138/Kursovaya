@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оформление заказа</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+</head>
+<body>
+<header>
+    <a href="/" class="logo">Магазин одежды</a>
+    <nav>
+        <a href="{% url 'index' %}">Главная</a>
+        <a href="/catalog">Каталог</a>
+        <a href="/cart">Корзина</a>
+    </nav>
+</header>
+
+<h2>Оформление заказа</h2>
+
+
+<form method="post" action="{% url 'checkout' %}" class="checkout-form">
+    {% csrf_token %}
+    <label>Имя:</label><br>
+    <input type="text" name="name" required><br>
+
+    <label>Телефон:</label><br>
+    <input type="tel" name="phone" pattern="^\+7\d{10}$" required placeholder="+7XXXXXXXXXX">
+
+    <label>Адрес доставки:</label><br>
+    <input type="text" name="address" required minlength="10" placeholder="Введите полный адрес доставки">
+
+    <button type="submit" class="checkout-btn">Заказать</button>
+    {% if message %}
+    <p style="text-align: center; color: green; font-size: 18px;">{{ message }}</p>
+{% endif %}
+</form>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const phone = document.querySelector('input[name="phone"]').value;
+    const regex = /^\+7\d{10}$/;
+
+    if (!regex.test(phone)) {
+        alert("Введите телефон в формате +7XXXXXXXXXX");
+        e.preventDefault();
+    }
+});
+</script>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const address = document.querySelector('input[name="address"]').value;
+
+    if (address.length < 10) {
+        alert("Адрес слишком короткий. Введите полный адрес доставки.");
+        e.preventDefault();
+    }
+});
+</script>
+
+
+</body>
+</html>

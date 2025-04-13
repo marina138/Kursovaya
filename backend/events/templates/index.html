@@ -3,65 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <title>Главная</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
-    }
-
-    header {
-      background-color: #4a90e2;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #dff0ff;
-    }
-
-    main {
-      padding: 40px;
-    }
-
-    h1 {
-      color: #333;
-    }
-  </style>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-
   <header>
-    <a href="/" class="logo">Магазин одежды</a>
+    <a href="/" class="logo">HOMOSEM</a>
     <nav>
       <a href="/">Главная</a>
       <a href="{% url 'catalog' %}">Каталог</a>
-      <a href="/cart">Корзина</a>
-      <a href="/account">Личный кабинет</a>
+      <a href="{% url 'cart' %}">Корзина</a>
+      <a href="{% url 'login' %}">Личный кабинет</a>
     </nav>
   </header>
+  <section class="hero">
+    <div class="hero-content">
 
-  <main>
-    <h1>Добро пожаловать в интернет-магазин одежды!</h1>
-    <p>Выберите категорию в меню сверху.</p>
-  </main>
+    </div>
+  </section>
+
+<section class="about">
+    <h2>Немного о нас:</h2>
+    <p>Московский бренд одежды, основанный в 2017 году, выпускающий вещи в лимитированном кол-ве.<br>
+        Наша задача, создавать качественные и стильные вещи, за доступную цену.<br>
+        За всё время работы, смогли одеть более 15000 счастливых покупателей.<br>
+        Ежедневно мы работаем над улучшением всех процессов в бренде. Если у Вас есть предложения по улучшения или сотрудничеству с брендом, Вы можете обратиться к нам через поддержку!</p>
+</section>
+
+<section class="popular-products">
+    <h2>Популярные товары</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 1">
+            <h3>Женское платье</h3>
+            <p>2 990 ₽</p>
+        </div>
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 2">
+            <h3>Мужская рубашка</h3>
+            <p>3 290 ₽</p>
+        </div>
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 3">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 4">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 5">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 6">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 7">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 8">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 9">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+        <div class="product-card">
+            <img src="/media/s-l400.jpg" alt="Товар 10">
+            <h3>Толстовка унисекс</h3>
+            <p>4 190 ₽</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Магазин одежды. Все права защищены.</p>
+        <p>Контакты: info@fashionstore.ru | +7 900 000 00 00</p>
+    </div>
+</footer>
 
 </body>
 </html>

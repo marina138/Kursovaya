@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Корзина</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+</head>
+<body>
+<style>
+body, html {
+height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+}
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+
+header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 2/rem;
+    color: #fff;
+    transition: color 0.3s, border-bottom 0.3s;
+    padding: 6px 12px;
+    border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+    color: #f5a623; /* оранжевый при наведении */
+    border-bottom: 2px solid #f5a623;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.cart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.cart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    max-width: 1300px;
+    width: 100%;
+    gap: 30px;
+    justify-items: center;
+    margin-bottom: 40px;
+}
+
+.cart-summary {
+    border-radius: 12px;
+    text-align: center;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+
+.cart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+
+.cart-summary h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.cart-summary p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.cart-summary button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.cart-summary button:hover {
+    background-color: #218838;
+}
+
+.cart-item {
+    background-color: #fff;
+    width: 280px;
+    height: 500px;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-5px);
+}
+
+.cart-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.item-details {
+    padding: 15px;
+    text-align: center;
+}
+
+.item-details h3 {
+    font-size: 18px;
+    margin: 10px 0 5px;
+}
+
+.item-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.quantity-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-controls button,
+.remove-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.quantity-controls button:hover,
+.remove-btn:hover {
+    background-color: #0056b3;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    margin-top: 10px;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+}
+
+/* Отступ для последнего элемента */
+h3:last-of-type {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+.checkout-form {
+    max-width: 400px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.checkout-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+    background-color: #218838;
+}
+        footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+}
+</style>
+<div class="wrapper">
+    <header>
+        <a href="/" class="logo">HOMOSEM</a>
+        <nav>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'catalog' %}">Каталог</a>
+            <a href="/cart">Корзина</a>
+            <a href="{% url 'login' %}">Личный кабинет</a>
+        </nav>
+    </header>
+    <h2>Ваша корзина</h2>
+
+    <div class="cart-wrapper">
+        <div class="cart-grid">
+            {% if cart %}
+                {% for product_id, item in cart.items %}
+                    <div class="cart-item">
+                        <img src="{{ item.image }}" alt="{{ item.name }}">
+                        <div class="item-details">
+                            <h3>{{ item.name }}</h3>
+                            <p>{{ item.price }} ₽</p>
+                            <p>Количество: {{ item.quantity }}</p>
+
+                            <div class="quantity-controls">
+                                <form method="post" action="{% url 'decrease_quantity' product_id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">➖</button>
+                                </form>
+                                <form method="post" action="{% url 'increase_quantity' product_id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">➕</button>
+                                </form>
+                            </div>
+
+                            <form method="post" action="{% url 'remove_from_cart' product_id %}">
+                                {% csrf_token %}
+                                <button class="remove-btn" type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Ваша корзина пуста</p>
+            {% endif %}
+        </div>
+
+        {% if cart %}
+        <div class="cart-summary">
+            <h3>Итого: {{ total }} ₽</h3>
+            <form method="post" action="{% url 'checkout' %}" class="checkout-form">
+                {% csrf_token %}
+                <button type="submit" class="checkout-btn">Оформить заказ</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Магазин одежды. Все права защищены.</p>
+        <p>Контакты: info@fashionstore.ru | +7 900 000 00 00</p>
+    </div>
+</footer>
+
+</body>
+</html>
