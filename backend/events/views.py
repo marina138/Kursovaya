@@ -13,11 +13,20 @@ from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from rest_framework.generics import ListAPIView
 from .models import Product
+from rest_framework import generics
 from .serializers import ProductSerializer
 from .filters import ProductFilter
+from rest_framework import viewsets
+from .models import Category
+from .serializers import CategorySerializer
 
 
-class ProductListAPIView(ListAPIView):
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class ProductListAPIView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]

@@ -1,5 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+from .views import ProductListAPIView, CategoryViewSet
+
+router = DefaultRouter()
+router.register(r'categories', CategoryViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -10,5 +15,6 @@ urlpatterns = [
     path('cart/increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
     path('cart/decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
     path('checkout/', views.checkout, name='checkout'),
-
+    path('api/', include(router.urls)),
+    path('api/products/', ProductListAPIView.as_view(), name='api-products'),
 ]
