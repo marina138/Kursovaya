@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchProducts } from "../api";
+import React, { useEffect, useState } from 'react';
+import axiosClient from '../axiosClient';
 
 interface Product {
   id: number;
@@ -47,5 +49,31 @@ const Catalog = () => {
     </div>
   );
 };
+const CatalogPage = () => {
+  const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    axiosClient.get('products/')
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => {
+        console.error('Ошибка при загрузке товаров:', error);
+      });
+  }, []);
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+      {products.map(product => (
+        <div key={product.id} className="p-4 border rounded shadow">
+          <h2 className="font-semibold">{product.name}</h2>
+          <p>{product.description}</p>
+          <p className="text-lg font-bold">{product.price}₽</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default CatalogPage;
 export default Catalog;
