@@ -9,6 +9,14 @@ from decimal import Decimal
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
+from rest_framework.generics import ListAPIView
+from .models import Product
+from .serializers import ProductSerializer
+
+
+class ProductListAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 def index(request):
