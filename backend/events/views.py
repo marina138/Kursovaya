@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .models import Product, Category
 from .filters import ProductFilter
 from .forms import AddToCartForm
@@ -12,11 +14,14 @@ from django.views.decorators.http import require_POST
 from rest_framework.generics import ListAPIView
 from .models import Product
 from .serializers import ProductSerializer
+from .filters import ProductFilter
 
 
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter
 
 
 def index(request):
