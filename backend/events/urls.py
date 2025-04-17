@@ -3,8 +3,6 @@ from . import views
 from rest_framework.routers import DefaultRouter
 from .views import ProductListAPIView, CategoryViewSet
 from .views import create_order
-from .views import add_to_cart
-from .views import get_cart
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet)
@@ -25,5 +23,5 @@ urlpatterns = [
     path('api/cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('api/cart/place_order/', views.place_order, name='place_order'),
     path('api/order/', views.create_order, name='create_order_api'),
-
+    path('api/get-csrf-token/', views.get_csrf_token, name='get_csrf_token'),
 ]
