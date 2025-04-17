@@ -1,61 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Оформление заказа</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
-</head>
-<body>
-<header>
-    <a href="/" class="logo">Магазин одежды</a>
-    <nav>
-        <a href="{% url 'index' %}">Главная</a>
-        <a href="/catalog">Каталог</a>
-        <a href="/cart">Корзина</a>
-    </nav>
-</header>
+import React, { useState } from 'react';
+import axios from 'axios';
 
-<h2>Оформление заказа</h2>
+function OrderForm({ onOrderPlaced }: { onOrderPlaced: () => void }) {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-
-<form method="post" action="{% url 'checkout' %}" class="checkout-form">
-    {% csrf_token %}
-    <label>Имя:</label><br>
-    <input type="text" name="name" required><br>
-
-    <label>Телефон:</label><br>
-    <input type="tel" name="phone" pattern="^\+7\d{10}$" required placeholder="+7XXXXXXXXXX">
-
-    <label>Адрес доставки:</label><br>
-    <input type="text" name="address" required minlength="10" placeholder="Введите полный адрес доставки">
-
-    <button type="submit" class="checkout-btn">Заказать</button>
-    {% if message %}
-    <p style="text-align: center; color: green; font-size: 18px;">{{ message }}</p>
-{% endif %}
-</form>
-<script>
-document.querySelector('form').addEventListener('submit', function(e) {
-    const phone = document.querySelector('input[name="phone"]').value;
-    const regex = /^\+7\d{10}$/;
-
-    if (!regex.test(phone)) {
-        alert("Введите телефон в формате +7XXXXXXXXXX");
-        e.preventDefault();
+  const handleSubmit = async () => {
+    if (!name || !phone || !address) {
+      setError('Все поля обязательны');
+      return;
     }
-});
-</script>
-<script>
-document.querySelector('form').addEventListener('submit', function(e) {
-    const address = document.querySelector('input[name="address"]').value;
 
-    if (address.length < 10) {
-        alert("Адрес слишком короткий. Введите полный адрес доставки.");
-        e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:8000/api/cart/place_order/', {
+        name, phone, address
+      }, { withCredentials: true });
+
+      setSuccess(res.data.message);
+      setError('');
+      onOrderPlaced(); // очистка корзины на фронте
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Ошибка оформления заказа');
     }
-});
-</script>
+  };
 
-
-</body>
-</html>
+  return (
+    <div className="p-4 border rounded mt-4 bg-gray-50">
+      <h2 className="text-xl font-semibold mb-2">Оформление заказа</h2>
+      <input type="text" placeholder="ФИО"
+             className="block w-full mb-2 p-2 border rounded"
+             value={name} onChange={e => setName(e.target.value)} />
+      <input type="text" placeholder="Телефон"
+             className="block w-full mb-2 p-2 border rounded"
+             value={phone} onChange={e => setPhone(e.target.value)} />
+      <input type="text" placeholder="Адрес доставки"
+             className="block w-full mb-2 p-2 border rounded"
+             value={address} onChange={e => setAddress(e.target.value)} />
+      {error && <p className="text-red-500">{error}</p>}
+      {success && <p className="text-green-600">{success}</p>}
+      <button onClick={handleSubmit}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Оформить заказ
+      </button>
+    </div>
+  );
+}

@@ -8,8 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/', include('events.api_urls')),
     path('', include('events.urls')),
-    path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='catalog'), name='logout'),
+    path('api/order/', include('events.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

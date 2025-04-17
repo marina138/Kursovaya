@@ -1,18 +1,30 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
-from django.db import models
+from django.core.validators import RegexValidator, EmailValidator
 from django.core.exceptions import ValidationError
 
 
 class Order(models.Model):
-    address = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    address = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    def clean(self):
-        if len(self.address.strip()) < 10:
-            raise ValidationError({'address': "Адрес слишком короткий, укажите более подробный адрес."})
+    def __str__(self):
+        return f"Заказ от {self.name} ({self.created_at.strftime('%Y-%m-%d %H:%M')})"
 
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product_id = models.IntegerField()
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.name} x {self.quantity}"
 
 class Customer(models.Model):
     phone = models.CharField(
@@ -23,7 +35,12 @@ class Customer(models.Model):
             code='invalid_phone'
         )]
     )
-
+    email = models.CharField(
+        max_length=255,
+        validators=[EmailValidator(message='Введите корректный адрес электронной почты')],
+        blank=True,
+        null=True
+    )
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -31,7 +48,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
@@ -51,7 +67,6 @@ class Cart(models.Model):
 
     def __str__(self):
         return f"Cart of {self.user.username}"
-
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)

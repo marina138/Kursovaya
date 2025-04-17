@@ -103,8 +103,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React-приложение
+    "http://localhost:3000",
+    "http://localhost:5173",  # Оставьте, если используете Vite
 ]
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+SESSION_COOKIE_SAMESITE = "Lax"  # или "Strict"
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
