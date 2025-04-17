@@ -12,6 +12,7 @@ router.register(r'categories', CategoryViewSet)
 urlpatterns = [
     path('', views.index, name='index'),
     path('catalog/', views.catalog_view, name='catalog'),
+    path('order/', create_order, name='create_order'),
     path('api/cart/add/<int:product_id>/', views.add_to_cart),
     path('cart/', views.view_cart, name='cart'),
     path('api/cart/increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
@@ -23,5 +24,6 @@ urlpatterns = [
     path('api/cart/update/<int:product_id>/', views.update_cart, name='update_cart'),
     path('api/cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('api/cart/place_order/', views.place_order, name='place_order'),
-    path('api/orders/', create_order, name='create_order'),
+    path('api/order/', views.create_order, name='create_order_api'),
+
 ]

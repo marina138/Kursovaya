@@ -17,7 +17,7 @@ from django.views.decorators.http import require_POST
 from rest_framework.generics import ListAPIView
 from .models import Product
 from rest_framework import generics
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer, OrderSerializer
 from .filters import ProductFilter
 from rest_framework import viewsets
 from .models import Category
@@ -141,26 +141,35 @@ def update_cart(request, product_id):
     request.session.modified = True
     return JsonResponse({'message': 'Корзина обновлена'})
 
-@csrf_exempt
 @api_view(['POST'])
 def create_order(request):
     data = request.data
     name = data.get('name')
     phone = data.get('phone')
+    email = data.get('email')
     address = data.get('address')
     items = data.get('items', [])
 
-    # Здесь можно сохранить в БД (например, через модель Order и OrderItem)
+    if not all([name, phone, email, address]) or not items:
+        return Response({'error': 'Неверные данные'}, status=400)
 
-    print("Новый заказ получен:")
-    print(f"Имя: {name}")
-    print(f"Телефон: {phone}")
-    print(f"Адрес: {address}")
-    print("Товары:")
+    order = Order.objects.create(
+        name=name,
+        phone=phone,
+        email=email,
+        address=address,
+    )
+
     for item in items:
-        print(f"  - {item['name']} (x{item['quantity']}) — {item['price']} ₽")
+        OrderItem.objects.create(
+            order=order,
+            product_id=item['product_id'],
+            name=item['name'],
+            price=item['price'],
+            quantity=item['quantity']
+        )
 
-    return Response({"message": "Заказ принят!"}, status=status.HTTP_201_CREATED)
+    return Response({'message': 'Заказ успешно оформлен!'})
 
 
 @csrf_exempt
