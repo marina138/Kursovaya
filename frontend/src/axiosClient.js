@@ -8,5 +8,6 @@ const axiosClient = axios.create({
   },
   withCredentials: true, // если куки для авторизации
 });
-
+axios.defaults.withCredentials = true;
 export default axiosClient;
+

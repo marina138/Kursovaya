@@ -1,0 +1,54 @@
+.order-form {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  background-color: #f9fafb;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-form h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.order-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.order-form .error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-form .success {
+  color: #16a34a;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-form button {
+  background-color: #524f59;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.order-form button:hover {
+  background-color: #38363d;;
+}

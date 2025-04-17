@@ -104,80 +104,104 @@ nav a:hover {
 
 
 
+
+
 /* events/static/css/catalog.css */
 .catalog-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд */
-    gap: 20px;
-    padding: 20px;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд */
+  gap: 20px; /* расстояние между карточками */
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .product-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-    height: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  height: 100%;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px); /* При наведении поднимается */
 }
 
 .product-image-wrapper {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    background-color: #f6f6f6;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f6f6f6;
 }
 
 .product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .product-content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .product-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin: 0 0 8px 0;
-    text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+  text-align: center;
 }
 
 .product-price {
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-    margin-bottom: 12px;
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 12px;
 }
 
-.add-to-cart-button {
-    padding: 10px;
-    border: none;
-    color: white;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.add-to-cart-btn {
+  padding: 10px;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #535059;
+  font-weight: bold;
 }
 
-.add-to-cart-button:hover {
-    background-color: #388E3C;
+.add-to-cart-btn:hover {
+  background-color: #38363d;
 }
+
+@media (max-width: 1200px) {
+  .catalog-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд на средних экранах */
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд на мобильных экранах */
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-container {
+    grid-template-columns: 1fr; /* 1 карточка в ряд на очень маленьких экранах */
+  }
+}
+
 footer {
     background-color: #222;
     color: white;
@@ -185,98 +209,37 @@ footer {
     padding: 30px 10px;
     margin-top: 40px;
 }
-/* Основные стили для формы */
-form {
-    display: flex;
-    flex-wrap: wrap; /* Чтобы элементы не выходили за пределы */
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #f9f9f9;
-    width: 100%;
-    max-width: 1300px;
-    margin: 20px auto;
+
+
+
+
+
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px auto;
+  padding: 16px;
+  max-width: 1200px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Стили для полей формы (input и select) */
-form label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    margin-right: 10px;
-    display: inline-block;
+.filters input,
+.filters select {
+  flex: 1 1 200px;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  transition: border-color 0.3s;
 }
 
-form input,
-form select {
-    width: 180px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
-    margin-right: 20px; /* расстояние между полями */
-}
-
-/* Стили при фокусе */
-form input:focus,
-form select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Кнопка "Применить фильтры" */
-form button {
-    padding: 12px 20px;
-    background-color: #000000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-/* Ховер на кнопке */
-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Убираем пустые поля для выравнивания */
-form .error {
-    color: #ff4d4d;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
-
-/* Если форма занимает много места, стили для маленьких экранов */
-@media (max-width: 768px) {
-    form {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    form input,
-    form select {
-        width: 100%; /* Делает поля шире на мобильных устройствах */
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-}
-
-
-/* Ховер на кнопке */
-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Стили для блоков ошибок (если есть) */
-form .error {
-    color: #ff4d4d;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 10px;
+.filters input:focus,
+.filters select:focus {
+  border-color: #4a90e2;
+  outline: none;
 }
